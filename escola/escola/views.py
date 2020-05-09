@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import *
 from .models import *
 
 
@@ -56,7 +56,7 @@ from .models import *
 #     }
 #     return render(request, 'cadastrarAluno.html', contexto)
 
-def cadastraPessoa(requisicao):
+def cadastrarPessoa(requisicao):
     cargos = cargoPessoa.objects.all()
     tipos = tipoPessoa.objects.all()
     if (requisicao.method == 'POST'):
@@ -68,12 +68,38 @@ def cadastraPessoa(requisicao):
         'cargos': cargos,
         'tipos': tipos
     }
-    return render(requisicao, 'cadastraPessoa.html', contexto)
+    return render(requisicao, 'cadastrarPessoa.html', contexto)
 
-def cadastraAluno(requisicao):
+
+def cadastrarAluno(requisicao):
     if (requisicao.method == 'POST'):
         tipoSelecionado = tipoPessoa.objects.get(id__exact=1)
         pessoa_cadastro = pessoa(nome=requisicao.POST['nome'], telefone=requisicao.POST['telefone'],
                                  matricula=requisicao.POST['matricula'], tipo=tipoSelecionado)
         pessoa_cadastro.save()
     return render(requisicao, 'cadastrarAluno.html')
+
+
+def cadastrarFuncionario(requisicao):
+    cargos = cargoPessoa.objects.all()
+    if (requisicao.method == 'POST'):
+        tipoSelecionado = tipoPessoa.objects.get(id__exact=1)
+        cargoSelecionado = cargoPessoa.objects.get(id__exact=requisicao.POST['cargo'])
+        pessoa_cadastro = pessoa(nome=requisicao.POST['nome'], telefone=requisicao.POST['telefone'],
+                                 matricula=requisicao.POST['matricula'], tipo=tipoSelecionado, cargo=cargoSelecionado)
+        pessoa_cadastro.save()
+    contexto = {
+        'cargos': cargos,
+    }
+    return render(requisicao, 'cadastrarFuncionario.html', contexto)
+
+
+def cadastrarCargo(requisicao):
+    cargos = cargoPessoa.objects.all()
+    if (requisicao.method == 'POST'):
+        cargoCadastro = cargoPessoa(descricao=requisicao.POST['descricao'])
+        cargoCadastro.save()
+    contexto = {
+        'cargos': cargos,
+    }
+    return render(requisicao, 'cadastrarFuncionario.html', contexto)

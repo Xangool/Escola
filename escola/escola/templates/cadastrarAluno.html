@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<form action="{% url 'escola:cadastraAluno' %}" method="post">
+<form action="{% url 'escola:cadastrarAluno' %}" method="post">
     {% csrf_token %}
     <div class="form-group">
         <label for="nome">Nome</label>

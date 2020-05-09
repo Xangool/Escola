@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<form action="{% url 'escola:cadastraPessoa' %}" method="post">
+<form action="{% url 'escola:cadastrarPessoa' %}" method="post">
     {% csrf_token %}
     <div class="form-group">
         <label for="nome">Nome</label>
@@ -19,7 +19,7 @@
         <label for="tipo">Cargo</label>
         <select id="tipo" name="tipo" class="form-control">
             {% for tipo in tipos %}
-                <option value="{{ tipo.id }}" label="{{ tipo.tipo }}"></option>
+                <option value="{{ tipo.id }}" label="{{ tipo.descricao }}"></option>
             {% endfor %}
         </select>
     </div>
@@ -27,7 +27,7 @@
         <label for="cargo">Cargo</label>
         <select id="cargo" name="cargo" class="form-control">
             {% for cargo in cargos %}
-                <option value="{{ cargo.id }}" label="{{ cargo.cargo }}"></option>
+                <option value="{{ cargo.id }}" label="{{ cargo.descricao }}"></option>
             {% endfor %}
         </select>
     </div>

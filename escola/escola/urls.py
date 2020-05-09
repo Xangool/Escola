@@ -4,10 +4,8 @@ from escola.escola.views import *
 app_name = "escola"
 
 urlpatterns = [
-    # path("listarAlunos", listarAlunos, name="listarAlunos"),
-    path("cadastraAluno", cadastraAluno, name="cadastraAluno"),
-    # path('listarPessoas', listarPessoas, name='listarPessoas'),
-    # path('listarLivros', listarLivros, name='listarLivros'),
-    # path('emprestimo', emprestimo, name='emprestimo'),
-    path('cadastraPessoa', cadastraPessoa, name='cadastraPessoa'),
+    path("cadastrarAluno", cadastrarAluno, name="cadastrarAluno"),
+    path('cadastrarPessoa', cadastrarPessoa, name='cadastrarPessoa'),
+    path('cadastrarFuncionario', cadastrarFuncionario, name='cadastrarFuncionario'),
+    path('cadastrarCargo', cadastrarCargo, name='cadastrarCargo'),
 ]
