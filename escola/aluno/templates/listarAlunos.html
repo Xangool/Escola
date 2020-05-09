@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 {% block conteudo %}
-{% for aluno in alunos %}
-    {{ aluno.nome }} <br>
-{% endfor %}
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Matricula</th>
+        </tr>
+    </thead>
+    {% for aluno in alunos %}
+    <tbody>
+        <tr>
+            <th scope="row">{{ aluno.id }}</th>
+            <td>{{ aluno.nome }}</td>
+            <td>{{ aluno.matricula }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
 {% endblock %}

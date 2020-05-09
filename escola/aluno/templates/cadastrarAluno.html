@@ -2,8 +2,24 @@
 {% block conteudo %}
 <form action="{% url 'aluno:cadastrarAluno' %}" method="post">
     {% csrf_token %}
-    <label>Nome do aluno: </label>
-    <input id="nome" type="text" name="nome">
+    <div class="col">
+        <div class="row">
+            <div class="col-md-2">
+                <label>Nome do aluno: </label>
+            </div>
+            <div class="col-md-2">
+                <input id="nome" type="text" name="nome">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>Matricula do aluno: </label>
+            </div>
+            <div class="col-md-2">
+                <input id="matricula" type="text" name="matricula">
+            </div>
+        </div>
+    </div>
     <input type="submit" value="Cadastrar">
 </form>
 {% endblock %}

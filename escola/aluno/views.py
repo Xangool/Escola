@@ -5,7 +5,7 @@ from .models import *
 def listarAlunos(request):
     alunos = Aluno.objects.all()
     contexto = {
-        'alunos':alunos
+        'alunos': alunos
     }
     return render(request, 'listarAlunos.html', contexto)
 
@@ -13,7 +13,7 @@ def listarAlunos(request):
 def cadastrarAluno(request):
     cadastro = Aluno.objects.all()
     if (request.method == 'POST'):
-        aluno = Aluno(nome=request.POST['nome'])
+        aluno = Aluno(nome=request.POST['nome'], matricula=request.POST['matricula'])
         aluno.save()
     contexto = {
         'cadastro': cadastro,
