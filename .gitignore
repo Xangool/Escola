@@ -1,8 +1,8 @@
 venv
 .idea
-aluno/migrations
-biblioteca/migrations
-aluno/__pycache__
-biblioteca/__pycache__
+escola/aluno/migrations
+escola/biblioteca/migrations
+escola/aluno/__pycache__
+escola/biblioteca/__pycache__
 escola/__pycache__
 escola.sqlite3
