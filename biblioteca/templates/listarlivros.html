@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="row">
+    <div class="col-md-12" align="right">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Adicionar Emprestimo
+        </button>
+    </div>
+</div>
+<div class="card-body">
+    </a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Quantidade disponivel</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Pessoa</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for livro in todos_livros %}
+        <tr>
+            <th scope="row">{{ livro.id }}</th>
+            <td>{{ livro.nome }}</td>
+            <td>{{ livro.codigo }}</td>
+            <td>{{ livro.quantidade_disponivel }}</td>
+            <td>{{ livro.categoria.nome }}</td>
+            <td>{{ livro.pessoa.nome }}</td>
+            <td>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Editar Emprestimo
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{% url 'biblioteca:emprestimo' %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <select name="livroSelecionado">
+                        <option/>
+                        {% for livro in todos_livros %}
+                        <option value="{{livro.id}}" label="{{livro.nome}}"></option>
+                        {% endfor%}
+                    </select>
+                    <select name="pessoaSelecionada">
+                        <option/>
+                        {% for pessoa in todas_pessoas %}
+                        <option value="{{pessoa.id}}" label="{{pessoa.nome}}"></option>
+                        {% endfor%}
+                    </select>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" value="Adicionar Emprestimo">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

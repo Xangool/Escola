@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="card">
+  <div class="card-body">
+    {% for pessoa in todas_pessoas %}
+        {{ pessoa.nome }}<br>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
