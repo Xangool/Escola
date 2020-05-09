@@ -3,7 +3,7 @@ from escola.escola.models import *
 # Create your views here.
 
 def listarPessoas(request):
-    pessoas = Pessoa.objects.all()
+    pessoas = pessoa.objects.all()
     contexto = {
         "pessoas": pessoas,
     }
@@ -12,7 +12,7 @@ def listarPessoas(request):
 
 
 def listarLivros(request):
-    livros = Livro.objects.all()
+    livros = livro.objects.all()
 
     contexto = {
         "todos_livros": livros,
@@ -22,17 +22,34 @@ def listarLivros(request):
 
 
 def emprestimo(request):
-    livros = Livro.objects.all()
-    pessoa = Pessoa.objects.all()
+    livros = livro.objects.all()
+    pessoas = pessoa.objects.all()
     contexto = {
         "todos_livros": livros,
-        "todas_pessoas": pessoa,
+        "todas_pessoas": pessoas,
     }
 
     if (request.method == 'POST'):
-        livroSelecionado = Livro.objects.get(id__exact=request.POST['livroSelecionado'])
-        livroSelecionado.pessoa = Pessoa.objects.get(id__exact=request.POST['pessoaSelecionada'])
+        livroSelecionado = livro.objects.get(id__exact=request.POST['livroSelecionado'])
+        livroSelecionado.pessoa = pessoa.objects.get(id__exact=request.POST['pessoaSelecionada'])
         livroSelecionado.save()
 
     return render(request, 'listarLivros.html', contexto)
 
+def listarAlunos(request):
+    alunos = pessoa.objects.all()
+    contexto = {
+        'alunos': alunos
+    }
+    return render(request, 'listarAlunos.html', contexto)
+
+
+def cadastrarAluno(request):
+    cadastro = aluno.objects.all()
+    if (request.method == 'POST'):
+        aluno = aluno(nome=request.POST['nome'], matricula=request.POST['matricula'])
+        aluno.save()
+    contexto = {
+        'cadastro': cadastro,
+    }
+    return render(request, 'cadastrarAluno.html', contexto)
