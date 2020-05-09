@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<form action="{% url 'aluno:cadastrarAluno' %}" method="post">
+    {% csrf_token %}
+    <label>Nome do aluno: </label>
+    <input id="nome" type="text" name="nome">
+    <input type="submit" value="Cadastrar">
+</form>
+{% endblock %}

@@ -1,30 +1,21 @@
-from django.forms import Form
 from django.shortcuts import render
 from .models import *
-from django.http import HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
 
-def listarAlunos (request):
+
+def listarAlunos(request):
     alunos = Aluno.objects.all()
-
     contexto = {
-        "todos_alunos" : alunos
+        'alunos':alunos
     }
+    return render(request, 'listarAlunos.html', contexto)
 
-    return render(request,'listar.html', contexto)
 
-def Cadastrar (request):
+def cadastrarAluno(request):
     cadastro = Aluno.objects.all()
     if (request.method == 'POST'):
-        # import pdb
-        # pdb.set_trace()
-        aluno = Aluno(nome=request.POST['your_name'])
+        aluno = Aluno(nome=request.POST['nome'])
         aluno.save()
     contexto = {
         'cadastro': cadastro,
     }
-    return render(request, 'cadastro.html', contexto)
-
-# django com crispy forms
-#
+    return render(request, 'cadastrarAluno.html', contexto)

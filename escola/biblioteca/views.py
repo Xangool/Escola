@@ -1,21 +1,14 @@
-from warnings import catch_warnings
-
 from django.shortcuts import render
 from .models import *
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 
-
-# Create your views here.
 
 def listarPessoas(request):
     pessoas = Pessoa.objects.all()
-
     contexto = {
-        "todas_pessoas": pessoas,
+        "pessoas": pessoas,
     }
 
-    return render(request, 'listarpessoas.html', contexto)
+    return render(request, 'listarPessoas.html', contexto)
 
 
 def listarLivros(request):
@@ -25,7 +18,7 @@ def listarLivros(request):
         "todos_livros": livros,
     }
 
-    return render(request, 'listarlivros.html', contexto)
+    return render(request, 'listarLivros.html', contexto)
 
 
 def emprestimo(request):
@@ -41,4 +34,4 @@ def emprestimo(request):
         livroSelecionado.pessoa = Pessoa.objects.get(id__exact=request.POST['pessoaSelecionada'])
         livroSelecionado.save()
 
-    return render(request, 'listarlivros.html', contexto)
+    return render(request, 'listarLivros.html', contexto)

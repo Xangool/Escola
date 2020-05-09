@@ -1,6 +1,6 @@
-{% extends "basico.html" %}
+{% extends "base.html" %}
 {% block conteudo %}
-{% for aluno in todos_alunos %}
+{% for aluno in alunos %}
     {{ aluno.nome }} <br>
 {% endfor %}
 {% endblock %}
