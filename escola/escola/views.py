@@ -2,64 +2,10 @@ from django.shortcuts import *
 from .models import *
 
 
-# Create your views here.
-
-# def listarPessoas(request):
-#     pessoas = pessoa.objects.all()
-#     contexto = {
-#         "pessoas": pessoas,
-#     }
-#
-#     return render(request, 'listarPessoas.html', contexto)
-#
-#
-# def listarLivros(request):
-#     livros = livro.objects.all()
-#
-#     contexto = {
-#         "todos_livros": livros,
-#     }
-#
-#     return render(request, 'listarLivros.html', contexto)
-#
-#
-# def emprestimo(request):
-#     livros = livro.objects.all()
-#     pessoas = pessoa.objects.all()
-#     contexto = {
-#         "todos_livros": livros,
-#         "todas_pessoas": pessoas,
-#     }
-#
-#     if (request.method == 'POST'):
-#         livroSelecionado = livro.objects.get(id__exact=request.POST['livroSelecionado'])
-#         livroSelecionado.pessoa = pessoa.objects.get(id__exact=request.POST['pessoaSelecionada'])
-#         livroSelecionado.save()
-#
-#     return render(request, 'listarLivros.html', contexto)
-#
-# def listarAlunos(request):
-#     alunos = pessoa.objects.all()
-#     contexto = {
-#         'alunos': alunos
-#     }
-#     return render(request, 'listarAlunos.html', contexto)
-#
-#
-# def cadastrarAluno(request):tipo
-#     cadastro = aluno.objects.all()
-#     if (request.method == 'POST'):
-#         aluno = aluno(nome=request.POST['nome'], matricula=request.POST['matricula'])
-#         aluno.save()
-#     contexto = {
-#         'cadastro': cadastro,
-#     }
-#     return render(request, 'cadastrarAluno.html', contexto)
-
 def cadastrarPessoa(requisicao):
     cargos = cargoPessoa.objects.all()
     tipos = tipoPessoa.objects.all()
-    if (requisicao.method == 'POST'):
+    if requisicao.method == 'POST':
         tipoSelecionado = tipoPessoa.objects.get(id__exact=requisicao.POST['tipo'])
         pessoa_cadastro = pessoa(nome=requisicao.POST['nome'], telefone=requisicao.POST['telefone'],
                                  matricula=requisicao.POST['matricula'], tipo=tipoSelecionado)
@@ -68,38 +14,42 @@ def cadastrarPessoa(requisicao):
         'cargos': cargos,
         'tipos': tipos
     }
-    return render(requisicao, 'cadastrarPessoa.html', contexto)
+    return render(requisicao, 'Pessoa/cadastrarPessoa.html', contexto)
 
 
 def cadastrarAluno(requisicao):
-    if (requisicao.method == 'POST'):
+    if requisicao.method == 'POST':
         tipoSelecionado = tipoPessoa.objects.get(id__exact=1)
         pessoa_cadastro = pessoa(nome=requisicao.POST['nome'], telefone=requisicao.POST['telefone'],
                                  matricula=requisicao.POST['matricula'], tipo=tipoSelecionado)
         pessoa_cadastro.save()
-    return render(requisicao, 'cadastrarAluno.html')
+    return render(requisicao, 'Aluno/cadastrarAluno.html')
 
 
 def cadastrarFuncionario(requisicao):
-    cargos = cargoPessoa.objects.all()
-    if (requisicao.method == 'POST'):
-        tipoSelecionado = tipoPessoa.objects.get(id__exact=1)
-        cargoSelecionado = cargoPessoa.objects.get(id__exact=requisicao.POST['cargo'])
-        pessoa_cadastro = pessoa(nome=requisicao.POST['nome'], telefone=requisicao.POST['telefone'],
-                                 matricula=requisicao.POST['matricula'], tipo=tipoSelecionado, cargo=cargoSelecionado)
-        pessoa_cadastro.save()
-    contexto = {
-        'cargos': cargos,
-    }
-    return render(requisicao, 'cadastrarFuncionario.html', contexto)
-
-
-def cadastrarCargo(requisicao):
-    cargos = cargoPessoa.objects.all()
-    if (requisicao.method == 'POST'):
-        cargoCadastro = cargoPessoa(descricao=requisicao.POST['descricao'])
-        cargoCadastro.save()
-    contexto = {
-        'cargos': cargos,
-    }
-    return render(requisicao, 'cadastrarFuncionario.html', contexto)
+    if requisicao.method == 'POST':
+        sucesso = None
+        if len(requisicao.POST['descricao']) > 0:
+            cargoParaSalvar = cargoPessoa(descricao=requisicao.POST['descricao'])
+            cargoParaSalvar.save()
+            pessoa_cadastro = pessoa(nome=requisicao.POST['nome'], telefone=requisicao.POST['telefone'])
+        else:
+            tipoSelecionado = tipoPessoa.objects.get(id__exact=2)
+            cargoSelecionado = cargoPessoa.objects.get(id__exact=requisicao.POST['cargo'])
+            pessoa_cadastro = pessoa(nome=requisicao.POST['nome'], telefone=requisicao.POST['telefone'],
+                                     tipo=tipoSelecionado,
+                                     cargo=cargoSelecionado)
+            pessoa_cadastro.save()
+            pessoa_cadastro = pessoa()
+            sucesso = "Funcionario cadastrado com sucesso"
+        contexto = {
+            'pessoa': pessoa_cadastro,
+            'cargos': cargoPessoa.objects.all(),
+            'sucesso': sucesso
+        }
+    else:
+        cargos = cargoPessoa.objects.all()
+        contexto = {
+            'cargos': cargos,
+        }
+    return render(requisicao, 'Funcionario/cadastrarFuncionario.html', contexto)
