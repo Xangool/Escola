@@ -19,15 +19,15 @@
         <label for="tipo">Cargo</label>
         <select id="tipo" name="tipo" class="form-control">
             {% for tipo in tipos %}
-                <option value="{{ tipo.id }}" label="{{ tipo.descricao }}"></option>
+            <option value="{{ tipo.id }}" label="{{ tipo.descricao }}"></option>
             {% endfor %}
         </select>
     </div>
-  <div class="form-group">
+    <div class="form-group">
         <label for="cargo">Cargo</label>
         <select id="cargo" name="cargo" class="form-control">
             {% for cargo in cargos %}
-                <option value="{{ cargo.id }}" label="{{ cargo.descricao }}"></option>
+            <option value="{{ cargo.id }}" label="{{ cargo.descricao }}"></option>
             {% endfor %}
         </select>
     </div>

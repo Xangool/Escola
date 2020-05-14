@@ -14,7 +14,7 @@ def cadastrarPessoa(requisicao):
         'cargos': cargos,
         'tipos': tipos
     }
-    return render(requisicao, 'Pessoa/cadastrarPessoa.html', contexto)
+    return render(requisicao, 'Pessoa/cadastro.html', contexto)
 
 
 def cadastrarAluno(requisicao):
@@ -23,7 +23,7 @@ def cadastrarAluno(requisicao):
         pessoa_cadastro = pessoa(nome=requisicao.POST['nome'], telefone=requisicao.POST['telefone'],
                                  matricula=requisicao.POST['matricula'], tipo=tipoSelecionado)
         pessoa_cadastro.save()
-    return render(requisicao, 'Aluno/cadastrarAluno.html')
+    return render(requisicao, 'Aluno/cadastro.html')
 
 
 def cadastrarFuncionario(requisicao):
@@ -52,4 +52,4 @@ def cadastrarFuncionario(requisicao):
         contexto = {
             'cargos': cargos,
         }
-    return render(requisicao, 'Funcionario/cadastrarFuncionario.html', contexto)
+    return render(requisicao, 'Funcionario/cadastro.html', contexto)
